@@ -2,22 +2,22 @@
 #include "src/Vector.hpp"
 
 struct Body {
-    Vector2 Position;
-    Vector2 Scale;
+    Vector2 position;
     Vector2 netForce;
     Vector2 acceleration;
     Vector2 velocity;
+    float radius;
     float mass;
-    float Rotation;
+    float rotation;
 
     Body(
         Vector2 pos = ZeroVector2,
-        Vector2 scale = OneVector2, 
-        float rotation = 0,
-        float mass = 1,
+        float radius = 1.0f,
+        float rotation = 0.0f,
+        float mass = 1.0f,
         Vector2 initVelocity = ZeroVector2
     ) 
-    : Position(pos) , Scale(scale), Rotation(rotation), mass(mass), velocity(initVelocity) {}
+    : position(pos) , radius(radius), rotation(rotation), mass(mass), velocity(initVelocity) {}
 
     ~Body() = default;
 
