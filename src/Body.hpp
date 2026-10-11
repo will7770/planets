@@ -1,14 +1,17 @@
 #pragma once
-#include "src/Vector.hpp"
+#include "vector.hpp"
 
 struct Body {
     Vector2 position;
     Vector2 netForce;
     Vector2 acceleration;
     Vector2 velocity;
+
     float radius;
     float mass;
+    float invmass;
     float rotation;
+
 
     Body(
         Vector2 pos = ZeroVector2,
@@ -17,7 +20,7 @@ struct Body {
         float mass = 1.0f,
         Vector2 initVelocity = ZeroVector2
     ) 
-    : position(pos) , radius(radius), rotation(rotation), mass(mass), velocity(initVelocity) {}
+    : position(pos) , radius(radius), rotation(rotation), mass(mass), velocity(initVelocity), invmass(1.0f / mass) {}
 
     ~Body() = default;
 

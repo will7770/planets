@@ -1,29 +1,32 @@
+#pragma once
+
 #include <array>
-#include "src/allocators.hpp"
-#include "src/Body.hpp"
+#include "allocators.hpp"
+#include "body.hpp"
 
 
-constexpr float CUTOFF_RADIUS = 0.01f;
+constexpr float MIN_FORCE = 0.01f;
 constexpr int MAX_BODIES = 100;
+constexpr double G = 6.67430e-11;
 
 
-typedef struct GravInfluence {
+typedef struct Hitcircle {
     float radius;
-    int belongs_to;
-} GravInfluence;
+} Hitcircle;
 
 
 class Engine {
 public:
     SParray<Body, MAX_BODIES> planets;
+    Engine() = default;
     ~Engine() = default;
     void Step();
-    void Create();
+    void Create(const Body &bodydef);
     void Delete();
 
 private:
     float dt;
-    SParray<GravInfluence, MAX_BODIES> hitcircles;
+    SParray<Hitcircle, MAX_BODIES> hitcircles;
     void DetectCollisions();
     void Integrate();
 };
