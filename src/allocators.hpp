@@ -9,14 +9,15 @@ template <typename Type, int Size>
 class SParray {
 private:
     alignas(alignof(Type)) std::byte array[Size*sizeof(Type)];
-    int capacity;
-    int size;
 
     Type* get_ptr(int idx) {
         return reinterpret_cast<Type*>(&array[idx * sizeof(Type)]);
     }
 
 public:
+    int size;
+    int capacity;
+
     SParray() {
         capacity = Size;
         size = 0;
