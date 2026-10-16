@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <vector>
 #include "allocators.hpp"
 #include "body.hpp"
 
@@ -15,18 +16,20 @@ typedef struct Hitcircle {
 } Hitcircle;
 
 
+struct Contact;
+
+
 class Engine {
 public:
     SParray<Body, MAX_BODIES> planets;
     Engine() = default;
     ~Engine() = default;
-    void Step();
-    void Create(const Body &bodydef);
-    void Delete();
+    void Step(float dt);
+    int Create(Body &bodydef);
+    void Delete(int bodyidx);
 
 private:
-    float dt;
     SParray<Hitcircle, MAX_BODIES> hitcircles;
-    void DetectCollisions();
-    void Integrate();
+    void DetectCollisions(std::vector<Contact> &buffer);
+    void Integrate(Contact cont, float dt);
 };
